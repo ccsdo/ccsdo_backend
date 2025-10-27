@@ -46,14 +46,16 @@ router.post('/create-order', async (req, res) => {
     };
     
     const order = await razorpay.orders.create(orderOptions);
-
+    console.log('Razorpay order created:', order);
     const donationOrder = new DonationOrder({
       razorpay_order_id: order.id,
       receipt: order.receipt,
-      amount: order.amount,
+      amount: (order.amount)/100,
       currency: order.currency,
       payment_capture: order.payment_capture,
-      notes: order.notes,
+      // type: order.notes.donation_type,
+      name: order.notes.donor_name,
+      email: order.notes.donor_email,
       status: order.status, // usually "created"
     });
     await donationOrder.save();
@@ -74,7 +76,7 @@ router.post('/create-order', async (req, res) => {
       from: process.env.EMAIL_USER,
       to: process.env.OWNER_EMAIL, // where emails go
       subject: `New donation created: ${donor?.first_name || ''} ${donor?.last_name || ''}`,
-      text: emailText,
+      html: emailText,
     });
   } catch (error) {
     console.error(error);
@@ -108,7 +110,9 @@ router.post('/verify-payment', async (req, res) => {
   { razorpay_order_id },
   { 
     $set: { 
-      payment_id: razorpay_payment_id, 
+      payment_id: razorpay_payment_id,
+      signature: razorpay_signature, 
+      verified_at: new Date(),
       status: "paid" 
     } 
   },
@@ -116,12 +120,13 @@ router.post('/verify-payment', async (req, res) => {
   { new: true }
 );
 emailText = emailTextfordonationverification(req.body,record);
+console.log(emailText)
  try {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.OWNER_EMAIL, // where emails go
       subject: `congratulation donation verified : ${donation_payload.donor.first_name || ''} ${donation_payload.donor.last_name || ''}`,
-      text: emailText,
+      html: emailText,
     });
   } catch (error) {
     console.error(error);

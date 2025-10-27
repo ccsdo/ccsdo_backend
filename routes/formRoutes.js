@@ -109,7 +109,7 @@ router.post("/contact", validate(contactSchema),async (req, res) => {
   } catch (err) {
     res.status(500).json({ success: false, error: err.message });
   } 
-});
+}); 
 
 // Donation Form
 router.post("/donation", validate(donationSchema), async (req, res) => {
@@ -120,6 +120,7 @@ router.post("/donation", validate(donationSchema), async (req, res) => {
     mail(`New donation form`,emailText);
     res.status(201).json({ success: true, message: "Donation form saved!" });
   } catch (err) {
+    console.log("form route error: "+err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
