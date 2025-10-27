@@ -14,31 +14,31 @@ const exportRoutes = require("./routes/deleteRoutes");
 // const { default: API } = require("razorpay/dist/types/api");
 const app = express();
 app.set("trust proxy", 1);
-// const allowed = [
-//   "https://crimecontrol.in",
-//   "https://www.crimecontrol.in"
-// ];
+const allowed = [
+  "https://crimecontrol.in",
+  "https://www.crimecontrol.in"
+];
 
-// const now = new Date();
-// const formatted = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-// // Middleware
-// app.use(cors({origin:function (origin, callback) {
-//       // Allow requests with no origin (like Postman or server-to-server)
-//     //  if (!origin) return callback(null, true);
+const now = new Date();
+const formatted = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+// Middleware
+app.use(cors({origin:function (origin, callback) {
+      // Allow requests with no origin (like Postman or server-to-server)
+    //  if (!origin) return callback(null, true);
 
-//       if (allowed.indexOf(origin) !== -1) {
-//         //  Origin is allowed
-//         return callback(null, true);
-//       } else {
-//         //  Origin not allowed
-//         return callback(new Error(`[${formatted}] CORS origin not allowed`));
-//       }
-//     },
-// methods: ["GET", "POST","DELETE"],
-// credentials:true}));
+      if (allowed.indexOf(origin) !== -1) {
+        //  Origin is allowed
+        return callback(null, true);
+      } else {
+        //  Origin not allowed
+        return callback(new Error(`[${formatted}] CORS origin not allowed`));
+      }
+    },
+methods: ["GET", "POST","DELETE"],
+credentials:true}));
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 app.use(globalLimiter);
 
