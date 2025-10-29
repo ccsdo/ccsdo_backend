@@ -19,8 +19,7 @@ const allowed = [
   "https://www.crimecontrol.in"
 ];
 
-const now = new Date();
-const formatted = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+
 // Middleware
 app.use(cors({origin:function (origin, callback) {
       // Allow requests with no origin (like Postman or server-to-server)
@@ -30,6 +29,8 @@ app.use(cors({origin:function (origin, callback) {
         //  Origin is allowed
         return callback(null, true);
       } else {
+        const now = new Date();
+const formatted = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
         //  Origin not allowed
         return callback(new Error(`[${formatted}] CORS origin not allowed`));
       }
