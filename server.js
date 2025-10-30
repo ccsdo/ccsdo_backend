@@ -19,7 +19,11 @@ const allowed = [
   "https://www.crimecontrol.in"
 ];
 
-
+app.use((req, res, next) => {
+  const ip = req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
+  console.log(`[${new Date().toLocaleString("en-IN", { timeZone: 'Asia/Kolkata' })}] Request from IP: ${ip}, Origin: ${req.headers.origin || "undefined"}`);
+  next();
+});
 // Middleware
 app.use(cors({origin:function (origin, callback) {
       // Allow requests with no origin (like Postman or server-to-server)
