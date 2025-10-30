@@ -29,8 +29,10 @@ app.use(cors({origin:function (origin, callback) {
         //  Origin is allowed
         return callback(null, true);
       } else {
+        
         const now = new Date();
 const formatted = now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+console.error(`[${formatted}]  CORS blocked: ${origin}`);
         //  Origin not allowed
         return callback(new Error(`[${formatted}] CORS origin not allowed`));
       }
@@ -42,6 +44,13 @@ credentials:true}));
 // app.use(cors());
 app.use(bodyParser.json());
 app.use(globalLimiter);
+app.use((req, res, next) => {
+  const ua = req.headers['user-agent'] || '';
+  if (ua.includes('autocannon')) {
+    return res.status(403).send('Forbidden');
+  }
+  next();
+});
 
 // Routes
 app.use("/api/forms", formRoutes);
