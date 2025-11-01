@@ -19,10 +19,13 @@ const donationRoutes = require("./routes/donationRoutes");
 
 const trafficRoutes = require("./routes/trafficRoutes");
 const exportRoutes = require("./routes/deleteRoutes");
+const track = require("./routes/track");
 
 
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set("trust proxy", 1);
 const allowed = ["https://crimecontrol.in", "https://www.crimecontrol.in"];
 
@@ -81,6 +84,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/donation", donationRoutes);
 app.use("/api/export", exportRoutes);
 app.use("/api/traffic", trafficRoutes);
+app.use("/api/track", track);
 // Connect MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
