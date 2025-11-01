@@ -24,7 +24,7 @@ const applicationSchema = require("../validators/applicationValidator");
 const volunteerSchema = require("../validators/volunteerValidator");
 const internshipSchema = require("../validators/internshipValidator");
 const careerSchema = require("../validators/careerValidator");
-const { emailTextforcareer } = require("../emailtext");
+const { emailTextforcareer,emailTextforapplication,emailTextforcontact,emailTextfordonation,emailTextforinternship,emailTextforvolunteer } = require("../emailtext");
 // const adminSchema = require("../validators/adminValidator");
 
 const transporter = nodemailer.createTransport({
@@ -47,7 +47,7 @@ try {
       // from:"kapilsharma09311@gmail.com",
       to: process.env.OWNER_EMAIL, // where emails go
       subject: subject,
-      text: text,
+      html: text,
 
     });
     // console.log("mail sent",res)
@@ -69,7 +69,7 @@ router.post("/career", validate(careerSchema), async (req, res) => {
           
     res.status(201).json({ success: true, message: "Career form saved!" });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, error: "error in career form saving" });
   } 
 });
 
@@ -78,12 +78,13 @@ router.post("/internship", validate(internshipSchema), async (req, res) => {
   try {
     const newInternship = new InternshipForm(req.body); 
     await newInternship.save();
-      const emailText = emailTextforcareer(newInternship,"internship");
+      const emailText = emailTextforinternship(newInternship,"internship");
     mail(`New internship form`,emailText);
     res.status(201).json({ success: true, message: "Internship form saved!" });
-  } catch (err) {    
-    res.status(500).json({ success: false, error: err.message });
-  } 
+  } catch (err) {
+    console.log("internship form error: "+err);
+    res.status(500).json({ success: false, error: "error in internship form saving" });
+  }
 });
 
 // Volunteer Form
@@ -91,11 +92,11 @@ router.post("/volunteer", validate(volunteerSchema),async (req, res) => {
   try {
     const newVolunteer = new VolunteerForm(req.body);
     await newVolunteer.save();
-        const emailText = emailTextforcareer(newVolunteer,"volunteer");
+        const emailText = emailTextforvolunteer(newVolunteer,"volunteer");
     mail(`New volunteer form`,emailText);
     res.status(201).json({ success: true, message: "Volunteer form saved!" });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, error: "error in volunteer form saving" });
   }
 });
 // Contact Form
@@ -103,25 +104,27 @@ router.post("/contact", validate(contactSchema),async (req, res) => {
   try {
     const newContact = new ContactForm(req.body);
     await newContact.save();
-        const emailText = emailTextforcareer(newContact,"contact");
+    console.log("new contact saved");
+        const emailText = emailTextforcontact(newContact,"contact");
+        console.log("contact email text: " + emailText);
     mail(`New contact form`,emailText);
     res.status(201).json({ success: true, message: "Contact form saved!" });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  } 
-}); 
+    res.status(500).json({ success: false, error: "error in contact form saving" });
+  }
+});
 
 // Donation Form
 router.post("/donation", validate(donationSchema), async (req, res) => {
   try {
     const newDonation = new DonationForm(req.body);
     await newDonation.save();
-        const emailText = emailTextforcareer(newDonation,"donation");
+        const emailText = emailTextfordonation(newDonation,"donation");
     mail(`New donation form`,emailText);
     res.status(201).json({ success: true, message: "Donation form saved!" });
   } catch (err) {
     console.log("form route error: "+err);
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, error: "error in donation form saving" });
   }
 });
 
@@ -130,11 +133,11 @@ router.post("/application", validate(applicationSchema), async (req, res) => {
   try {
     const newApp = new ApplicationForm(req.body);
     await newApp.save();
-        const emailText = emailTextforcareer(newApp,"application");
+        const emailText = emailTextforapplication(newApp,"application");
     mail(`New application form`,emailText); 
     res.status(201).json({ success: true, message: "Application form saved!" });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, error: "error in application form saving" });
   }
 });
 
