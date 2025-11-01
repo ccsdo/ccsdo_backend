@@ -24,7 +24,7 @@ const exportRoutes = require("./routes/deleteRoutes");
 
 const app = express();
 app.set("trust proxy", 1);
-const allowed = ["http://127.0.0.1:5501", "https://www.crimecontrol.in"];
+const allowed = ["https://crimecontrol.in", "https://www.crimecontrol.in"];
 
 app.use((req, res, next) => {
   const ip =
