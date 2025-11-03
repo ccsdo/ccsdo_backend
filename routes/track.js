@@ -6,7 +6,7 @@ const track=(req,res)=>{
      const ip =
     req.headers["x-forwarded-for"]?.split(",")[0] ||
     req.socket.remoteAddress;
-console.log(req)
+// console.log(req)
   const log = {
     page: req.body.page,
     referrer: req.body.referrer,
@@ -16,7 +16,9 @@ console.log(req)
   };
   
 
-  fs.appendFile("visitors.log", JSON.stringify(log) + "\n", (err) => {
+  fs.appendFile("visitors.log", `[${new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  })}]   ${JSON.stringify(log)}\n`, (err) => {
     if (err) console.error("Write error:", err);
   });
 

@@ -1,9 +1,29 @@
+const fs = require("fs");
+const process = require("process");
+
 process.on("uncaughtException", (err) => {
-  console.error("❌ Uncaught Exception:", err);
+  const log = `[${new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  })}] Uncaught Exception: ${err.stack}\n`;
+
+  fs.appendFile("errorfile.log", log, () => {
+    // Optional: give time to flush logs
+    setTimeout(() => {
+      process.exit(1); // exit after logging
+    }, 300);
+  });
 });
 
 process.on("unhandledRejection", (err) => {
-  console.error("❌ Unhandled Promise Rejection:", err);
+  const log = `[${new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  })}] Unhandled Promise Rejection: ${err.stack}\n`;
+  fs.appendFile("errorfile.log", log, () => {
+    // Optional: give time to flush logs
+    setTimeout(() => {
+      process.exit(1); // exit after logging
+    }, 300);
+  });
 });
 
 const express = require("express");
@@ -21,8 +41,6 @@ const trafficRoutes = require("./routes/trafficRoutes");
 const exportRoutes = require("./routes/deleteRoutes");
 const track = require("./routes/track");
 
-
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,10 +50,18 @@ const allowed = ["https://crimecontrol.in", "https://www.crimecontrol.in"];
 app.use((req, res, next) => {
   const ip =
     req.headers["x-forwarded-for"]?.split(",")[0] || req.socket.remoteAddress;
-  console.log(
+  // console.log(
+  //   `[${new Date().toLocaleString("en-IN", {
+  //     timeZone: "Asia/Kolkata",
+  //   })}] Request from IP: ${ip}, Origin: ${req.headers.origin || "undefined"}`
+  // );
+  fs.appendFile(
+    "access.log",
     `[${new Date().toLocaleString("en-IN", {
       timeZone: "Asia/Kolkata",
-    })}] Request from IP: ${ip}, Origin: ${req.headers.origin || "undefined"}`
+    })}] Request from IP: ${ip}, Origin: ${req.headers.origin || "undefined"
+    }\n`,
+    () => { }
   );
   next();
 });
@@ -54,9 +80,14 @@ app.use(
         const formatted = now.toLocaleString("en-IN", {
           timeZone: "Asia/Kolkata",
         });
-        console.warn(`[${formatted}]  CORS blocked: ${origin}`);
+        // console.warn(`[${formatted}]  CORS blocked: ${origin}`);
+        fs.appendFile(
+          "corsaccess.log",
+          `[${formatted}] CORS blocked: ${origin}\n`,
+          () => { }
+        );
         //  Origin not allowed
-        return callback(null,false);
+        return callback(null, false);
       }
     },
     methods: ["GET", "POST", "DELETE"],
@@ -97,6 +128,13 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use((err, req, res, next) => {
-  console.error("API Error:", err);
+  // console.error("API Error:", err);
+  fs.appendFile(
+    "errorfile.log",
+    `[${new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+    })}] API Error: ${err}\n`,
+    () => { }
+  );
   res.status(500).json({ success: false, message: "Server Error" });
 });
