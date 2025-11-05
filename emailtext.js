@@ -135,15 +135,15 @@ let emailText = `
   <h2>Donation Payment Verified ✅</h2>
 
   <table>
-    <tr><td class="label">Full Name</td><td>${body.payload.donor.first_name} ${body.payload.donor.last_name}</td></tr>
-    <tr><td class="label">Email ID</td><td>${body.payload.donor.email}</td></tr>
-    <tr><td class="label">Mobile No</td><td>${body.payload.donor.phone}</td></tr>
+    <tr><td class="label">Full Name</td><td>${body.donation_payload?.donor.first_name ? body.donation_payload.donor.first_name : body.payload?.donor.first_name} ${body.payload?.donor.last_name ? body.payload?.donor.last_name : body.donation_payload?.donor.last_name}</td></tr>
+    <tr><td class="label">Email ID</td><td>${body.donation_payload?.donor.email ? body.donation_payload.donor.email : body.donation?.donor.email}</td></tr>
+    <tr><td class="label">Mobile No</td><td>${body.donation_payload?.donor.phone ? body.donation_payload.donor.phone : body.donation?.donor.phone}</td></tr>
 
     <tr><td class="label">Razorpay Order ID</td><td>${order.order_id}</td></tr>
     <tr><td class="label">Payment ID</td><td>${order.payment_id}</td></tr>
     <tr><td class="label">Signature</td><td>${order.signature}</td></tr>
 
-    <tr><td class="label">Donation Payload</td><td><pre style="white-space:pre-wrap;font-size:13px;">${JSON.stringify(body.payload)}</pre></td></tr>
+    <tr><td class="label">Donation Payload</td><td><pre style="white-space:pre-wrap;font-size:13px;">${JSON.stringify(body)}</pre></td></tr>
 
     <tr><td class="label">Payment Status</td><td>✅ Paid</td></tr>
     <tr><td class="label">Verified At</td><td>${order.verified_at}</td></tr>
