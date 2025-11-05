@@ -45,7 +45,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("trust proxy", 1);
-const allowed = ["https://crimecontrol.in", "https://www.crimecontrol.in"];
+const allowed = ["http://127.0.0.1:5501", "https://www.crimecontrol.in"];
 
 app.use((req, res, next) => {
   const ip =
@@ -116,17 +116,6 @@ app.use("/api/donation", donationRoutes);
 app.use("/api/export", exportRoutes);
 app.use("/api/traffic", trafficRoutes);
 app.use("/api/track", track);
-// Connect MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB connected");
-    app.listen(process.env.PORT, () =>
-      console.log(`Server running on port ${process.env.PORT}`)
-    );
-  })
-  .catch((err) => console.log(err));
-
 app.use((err, req, res, next) => {
   // console.error("API Error:", err);
   fs.appendFile(
@@ -138,3 +127,15 @@ app.use((err, req, res, next) => {
   );
   res.status(500).json({ success: false, message: "Server Error" });
 });
+// Connect MongoDB
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("MongoDB connected");
+    app.listen(process.env.PORT, () =>
+      console.log(`Server running on port ${process.env.PORT}`)
+    );
+  })
+  .catch((err) => console.log(err));
+
+

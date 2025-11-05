@@ -76,6 +76,7 @@ let emailText = `
 }
 
 export const emailTextfordonationverification = (body,order) => {
+  console.log("body is",body)
 let emailText = `
 <!DOCTYPE html>
 <html>
@@ -134,15 +135,15 @@ let emailText = `
   <h2>Donation Payment Verified ✅</h2>
 
   <table>
-    <tr><td class="label">Full Name</td><td>${body.donation_payload.donor.first_name} ${body.donation_payload.donor.last_name}</td></tr>
-    <tr><td class="label">Email ID</td><td>${body.donation_payload.donor.email}</td></tr>
-    <tr><td class="label">Mobile No</td><td>${body.donation_payload.donor.phone}</td></tr>
+    <tr><td class="label">Full Name</td><td>${body.payload.donor.first_name} ${body.payload.donor.last_name}</td></tr>
+    <tr><td class="label">Email ID</td><td>${body.payload.donor.email}</td></tr>
+    <tr><td class="label">Mobile No</td><td>${body.payload.donor.phone}</td></tr>
 
     <tr><td class="label">Razorpay Order ID</td><td>${order.order_id}</td></tr>
     <tr><td class="label">Payment ID</td><td>${order.payment_id}</td></tr>
     <tr><td class="label">Signature</td><td>${order.signature}</td></tr>
 
-    <tr><td class="label">Donation Payload</td><td><pre style="white-space:pre-wrap;font-size:13px;">${JSON.stringify(order.donation_payload)}</pre></td></tr>
+    <tr><td class="label">Donation Payload</td><td><pre style="white-space:pre-wrap;font-size:13px;">${JSON.stringify(body.payload)}</pre></td></tr>
 
     <tr><td class="label">Payment Status</td><td>✅ Paid</td></tr>
     <tr><td class="label">Verified At</td><td>${order.verified_at}</td></tr>
@@ -559,7 +560,7 @@ export const emailTextfordonation = (body, text) => {
     customAmount
   } = body;
 
-  const finalAmount = donationAmount + customAmount < 0 ? donationAmount + customAmount : donationAmount;
+  const finalAmount = donationAmount + (customAmount  ? customAmount : 0);
 
   const emailText = `
   <!DOCTYPE html>
@@ -622,9 +623,7 @@ export const emailTextfordonation = (body, text) => {
       <tr><td class="label">Name:</td><td>${name}</td></tr>
       <tr><td class="label">Email:</td><td>${email}</td></tr>
       <tr><td class="label">Phone:</td><td>${mobile}</td></tr>
-      <tr><td class="label">DOB:</td><td>${dob}</td></tr>
       <tr><td class="label">PAN:</td><td>${pan}</td></tr>
-      <tr><td class="label">Country:</td><td>${country}</td></tr>
       <tr><td class="label">State:</td><td>${state}</td></tr>
       <tr><td class="label">City:</td><td>${city}</td></tr>
       <tr><td class="label">Address:</td><td>${address}, ${pincode}</td></tr>
