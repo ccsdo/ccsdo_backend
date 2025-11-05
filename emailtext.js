@@ -560,7 +560,7 @@ export const emailTextfordonation = (body, text) => {
     customAmount
   } = body;
 
-  const finalAmount = donationAmount + (customAmount  ? customAmount : 0);
+  const finalAmount = (Number(donationAmount) ? Number(donationAmount) : 0) + (Number(customAmount) ? Number(customAmount) : 0);
 
   const emailText = `
   <!DOCTYPE html>

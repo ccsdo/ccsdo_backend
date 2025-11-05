@@ -45,7 +45,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("trust proxy", 1);
-const allowed = ["https://crimecontrol.in", "https://www.crimecontrol.in"];
+const allowed = [process.env.FRONTEND_URL1, process.env.FRONTEND_URL2];
 
 app.use((req, res, next) => {
   const ip =
