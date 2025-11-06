@@ -8,6 +8,7 @@ const nodemailer = require("nodemailer");
 const {
   emailTextfordonationcreation,
   emailTextfordonationverification,
+  emailTextClient,
 } = require("../emailtext");
 const router = express.Router();
 
@@ -93,6 +94,7 @@ router.post("/create-order", async (req, res) => {
 });
 
 router.post("/verify-payment", async (req, res) => {
+   console.log( req.body.donation_payload ? req.body.donation_payload : req.body.payload)
   try {
     const {
       razorpay_order_id,
@@ -137,6 +139,21 @@ router.post("/verify-payment", async (req, res) => {
           subject: `congratulation donation verified : ${
             req.body.donation_payload?.donor.first_name ? req.body.donation_payload.donor.first_name : req.body.payload?.donor.first_name
           } ${req.body.payload?.donor.last_name ? req.body.payload?.donor.last_name : req.body.donation_payload?.donor.last_name}`,
+          html: emailText,
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("Error sending mail");
+      }
+      emailText=emailTextClient({donation_payload: req.body.donation_payload ? req.body.donation_payload : req.body.payload,order_id: razorpay_order_id});
+      try {
+       console.log("sending mail to donor")
+        transporter.sendMail({
+          from: `"Crime Control & Social Development Organisation" <${process.env.EMAIL_USER}>`,
+          to: req.body.donation_payload?.donor.email ? req.body.donation_payload.donor.email : req.body.payload?.donor.email, // where emails go
+          subject: `congratulation donation verified : ${
+            req.body.donation_payload?.donor.first_name ? req.body.donation_payload.donor.first_name : req.body.payload?.donor.first_name
+          }`,
           html: emailText,
         });
       } catch (error) {

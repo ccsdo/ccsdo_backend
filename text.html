@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #EC1165 0%, #e75f93 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .section-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .data-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table td:first-child {
+            font-weight: 600;
+            color: #333;
+            width: 40%;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #EC1165 0%, #e75f93 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header with Logo -->
+        <div class="header">
+            <div class="logo"><img src="assets/log.jpg" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%;"></div>
+            <h1>Crime Control & Social Development Organisation (CCSDO)</h1>
+            <p>Thank you for your donation</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <div class="greeting">
+                Hello [Recipient Name],
+            </div>
+            
+            <!-- Section 1 -->
+            <div class="section">
+                <div class="section-title">Introduction</div>
+                <div class="section-content">
+                    [Insert your introduction text here. This is where you can add your main message or opening paragraph.]
+                </div>
+            </div>
+            
+            <!-- Section 2 with Data Table -->
+            <div class="section">
+                <div class="section-title">Details</div>
+                <table class="data-table">
+                    <tr>
+                        <td>Field Name 1:</td>
+                        <td>[Data Value 1]</td>
+                    </tr>
+                    <tr>
+                        <td>Field Name 2:</td>
+                        <td>[Data Value 2]</td>
+                    </tr>
+                    <tr>
+                        <td>Field Name 3:</td>
+                        <td>[Data Value 3]</td>
+                    </tr>
+                    <tr>
+                        <td>Field Name 4:</td>
+                        <td>[Data Value 4]</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Section 3 -->
+            <div class="section">
+                <div class="section-title">Additional Information</div>
+                <div class="section-content">
+                    [Add more content here. You can include multiple paragraphs, lists, or any other information you need to convey.]
+                </div>
+            </div>
+            
+            <!-- Call to Action Button -->
+            <div style="text-align: center;">
+                <a href="#" class="cta-button">Take Action</a>
+            </div>
+            
+            <!-- Closing -->
+            <div style="margin-top: 30px; font-size: 14px; color: #555;">
+                <p>Best regards,</p>
+                <p style="margin-top: 10px; font-weight: 600;">[Your Name]<br>
+                [Your Position]<br>
+                [Your Company]</p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 Your Company Name. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="#">Unsubscribe</a> | 
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Contact Us</a>
+            </p>
+            <p style="margin-top: 10px;">123 Business Street, City, State 12345</p>
+        </div>
+    </div>
+</body>
+</html>
