@@ -136,8 +136,8 @@ let emailText = `
 
   <table>
     <tr><td class="label">Full Name</td><td>${body.donation_payload?.donor.first_name ? body.donation_payload.donor.first_name : body.payload?.donor.first_name} ${body.payload?.donor.last_name ? body.payload?.donor.last_name : body.donation_payload?.donor.last_name}</td></tr>
-    <tr><td class="label">Email ID</td><td>${body.donation_payload?.donor.email ? body.donation_payload.donor.email : body.donation?.donor.email}</td></tr>
-    <tr><td class="label">Mobile No</td><td>${body.donation_payload?.donor.phone ? body.donation_payload.donor.phone : body.donation?.donor.phone}</td></tr>
+    <tr><td class="label">Email ID</td><td>${body.donation_payload?.donor.email ? body.donation_payload.donor.email : body.payload?.donor.email}</td></tr>
+    <tr><td class="label">Mobile No</td><td>${body.donation_payload?.donor.phone ? body.donation_payload.donor.phone : body.payload?.donor.phone}</td></tr>
 
     <tr><td class="label">Razorpay Order ID</td><td>${order.order_id}</td></tr>
     <tr><td class="label">Payment ID</td><td>${order.payment_id}</td></tr>
