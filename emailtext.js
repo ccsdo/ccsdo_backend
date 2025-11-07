@@ -975,3 +975,231 @@ Unsubscribe: https://crimecontrol.in/unsubscribe.html
   return emailText;
 }
 
+export const emailTextThankyouClient=(data)=>{
+  // console.log("data in email template:",data.name?data.name:data.fname);
+let emailText = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Receipt - CCSDO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background-color: #EC1165;
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: block;
+            padding: 5px;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #EC1165;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #EC1165;
+        }
+        
+        .section-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table td:first-child {
+            font-weight: 600;
+            color: #333;
+            width: 40%;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #EC1165;
+            color: white !important;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer a {
+            color: #EC1165;
+            text-decoration: none;
+        }
+        
+        .unsubscribe {
+            margin-top: 15px;
+            font-size: 11px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header with Logo -->
+        <div class="header">
+            <img src="https://crimecontrol.in/images/log.png" alt="CCSDO Logo" class="logo">
+            <h1>Crime Control & Social Development Organisation</h1>
+            <p>Thank You for Reaching Out</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <div class="greeting">
+                Dear ${data.name?data.name:data.fname},
+            </div>
+            
+            <!-- Section 1 -->
+            <div class="section">
+                <div class="section-title">Mail For Confirmation</div>
+                <div class="section-content">
+                    Thank you for connecting with CCSDO. we will connect you soon.
+                </div>
+            </div>
+            
+        
+            
+            <!-- Section 3 -->
+            <div class="section">
+                <div class="section-title">What Happens Next</div>
+                <div class="section-content">
+                    Our team will reach out to you shortly. If you have any questions in the meantime, please feel free to reach out to us at volunteersform@crimecontrol.in.
+                </div>
+            </div>
+            
+            <!-- Call to Action Button -->
+            <div style="text-align: center;">
+                <a href="https://crimecontrol.in/contact.html" class="cta-button">Contact Us</a>
+            </div>
+            
+            <!-- Closing -->
+            <div style="margin-top: 30px; font-size: 14px; color: #555;">
+                <p>Warm regards,</p>
+                <p style="margin-top: 10px; font-weight: 600;">
+                    Kavita Rawat<br>
+                    Chairperson<br>
+                    Crime Control & Social Development Organisation (CCSDO)
+                </p>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 Crime Control & Social Development Organisation (CCSDO). All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="https://crimecontrol.in/Policies.html">Privacy Policy</a> | 
+                <a href="https://crimecontrol.in/contact.html">Contact Us</a>
+            </p>
+            <p style="margin-top: 10px;">B-108 Sector 6, Noida, Uttar Pradesh 201301, India</p>
+            <div class="unsubscribe">
+                <a href="https://crimecontrol.in/unsubscribe.html" style="color: #999;">Unsubscribe from future emails</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+
+
+// plainTextVersion += `
+// Dear ${data.name?data.name:data.fname},
+
+// Thank you for connecting with CCSDO. we will connect you soon.
+// If you have any questions or need further assistance, please don't hesitate to reach out at volunteersform@crimecontrol.in.
+
+
+// Contact us: https://crimecontrol.in/contact.html
+
+// Warm regards,
+// Kavita Rawat
+// Chairperson
+// Crime Control & Social Development Organisation (CCSDO)
+
+// B-108 Sector 6, Noida, Uttar Pradesh 201301, India
+// Privacy Policy: https://crimecontrol.in/Policies.html
+// Unsubscribe: https://crimecontrol.in/unsubscribe.html
+
+// © 2025 CCSDO. All rights reserved.
+// `;
+// console.log("emailTextThankyouClient:",emailText);
+  return emailText;
+}
+
