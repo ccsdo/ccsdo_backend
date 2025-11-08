@@ -95,7 +95,7 @@ router.post("/create-order", async (req, res) => {
 });
 
 router.post("/verify-payment", async (req, res) => {
-   console.log( req.body.donation_payload ? req.body.donation_payload : req.body.payload)
+
   try {
     const {
       razorpay_order_id,
@@ -136,7 +136,7 @@ router.post("/verify-payment", async (req, res) => {
         transporter.sendMail({
           from: process.env.EMAIL_USER,
           to: process.env.OWNER_EMAIL, // where emails go
-          subject: `congratulation donation verified : ${
+          subject: `Congratulation donation verified : ${
             req.body.donation_payload?.donor.first_name ? req.body.donation_payload.donor.first_name : req.body.payload?.donor.first_name
           } ${req.body.payload?.donor.last_name ? req.body.payload?.donor.last_name : req.body.donation_payload?.donor.last_name}`,
           html: emailText,
@@ -146,7 +146,7 @@ router.post("/verify-payment", async (req, res) => {
         res.status(500).send("Error sending mail");
       }
       emailText=emailTextClient({donation_payload: req.body.donation_payload ? req.body.donation_payload : req.body.payload,order_id: razorpay_order_id});
-      mail(`congratulation donation verified : ${req.body.donation_payload?.donor.first_name ? req.body.donation_payload.donor.first_name : req.body.payload?.donor.first_name}`, emailText, req.body.donation_payload?.donor.email ? req.body.donation_payload.donor.email : req.body.payload?.donor.email);
+      mail(`Congratulation donation verified : ${req.body.donation_payload?.donor.first_name ? req.body.donation_payload.donor.first_name : req.body.payload?.donor.first_name}`, emailText, req.body.donation_payload?.donor.email ? req.body.donation_payload.donor.email : req.body.payload?.donor.email);
 
 
 

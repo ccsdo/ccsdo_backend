@@ -724,6 +724,8 @@ export const emailTextforapplication = (body, text) => {
 
 
 export const emailTextClient=(data)=>{
+  let uname = data.donation_payload.donor.first_name;
+  uname=uname.charAt(0).toUpperCase() + uname.slice(1);
 let emailText = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -872,7 +874,7 @@ let emailText = `<!DOCTYPE html>
         <!-- Main Content -->
         <div class="content">
             <div class="greeting">
-                Dear ${data.donation_payload.donor.first_name},
+                Dear ${uname},
             </div>
             
             <!-- Section 1 -->
@@ -977,6 +979,8 @@ Unsubscribe: https://crimecontrol.in/unsubscribe.html
 
 export const emailTextThankyouClient=(data)=>{
   // console.log("data in email template:",data.name?data.name:data.fname);
+  let uname = data.name?data.name:data.fname;
+  uname=uname.charAt(0).toUpperCase() + uname.slice(1);
 let emailText = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1125,7 +1129,7 @@ let emailText = `<!DOCTYPE html>
         <!-- Main Content -->
         <div class="content">
             <div class="greeting">
-                Dear ${data.name?data.name:data.fname},
+                Dear ${uname},
             </div>
             
             <!-- Section 1 -->
