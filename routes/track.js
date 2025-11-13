@@ -14,7 +14,7 @@ const track=(req,res)=>{
     time: req.body.time,
     ip: ip
   };
-  console.log(page);
+  console.log(log);
   
 
   fs.appendFile("visitors.log", `[${new Date().toLocaleString("en-IN", {
