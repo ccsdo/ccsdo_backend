@@ -8,12 +8,13 @@ const track=(req,res)=>{
     req.socket.remoteAddress;
 // console.log(req)
   const log = {
-    page: req.body.page,
+    page: req.body?.page || "unknown",
     referrer: req.body.referrer,
     userAgent: req.body.userAgent,
     time: req.body.time,
     ip: ip
   };
+  console.log(page);
   
 
   fs.appendFile("visitors.log", `[${new Date().toLocaleString("en-IN", {
