@@ -66,6 +66,55 @@ app.use((req, res, next) => {
   next();
 });
 // Middleware
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  const userAgent = req.headers["user-agent"];
+
+  // Block requests with no origin (Postman, curl, backend scripts)
+  if (!origin) {
+
+    fs.appendFile(
+          "corsaccess.log",
+          `Blocked request: No Origin (probably Postman)`,
+          () => { }
+        );
+    return res.status(403).json({
+      success: false,
+      message: "Access denied: missing Origin header",
+    });
+  }
+
+  // Block Postman and curl explicitly by user-agent
+  if (userAgent?.includes("Postman") || userAgent?.includes("curl")) {
+    console.log("Blocked request: User-Agent:", userAgent);
+    fs.appendFile(
+          "corsaccess.log",
+          `Blocked request: User-Agent:, ${userAgent}`,
+          () => { }
+        );
+    return res.status(403).json({
+      success: false,
+      message: "Access denied: Postman or curl requests blocked",
+    });
+  }
+
+
+
+  if (!allowed.includes(origin)) {
+     fs.appendFile(
+          "corsaccess.log",
+          `Blocked request: User-Agent:, ${origin}`,
+          () => { }
+        );
+    return res.status(403).json({
+      success: false,
+      message: "Access denied: Origin not allowed",
+    });
+  }
+
+  next();
+});
+
 app.use(
   cors({
     origin: function (origin, callback) {
