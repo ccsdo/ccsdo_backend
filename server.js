@@ -40,6 +40,7 @@ const donationRoutes = require("./routes/donationRoutes");
 const trafficRoutes = require("./routes/trafficRoutes");
 const exportRoutes = require("./routes/deleteRoutes");
 const track = require("./routes/track");
+const trackOrder = require("./routes/trackOrder")
 
 const app = express();
 app.use(express.json());
@@ -119,7 +120,7 @@ app.use(
   cors({
     origin: function (origin, callback) {
       // Allow requests with no origin (like Postman or server-to-server)
-      //  if (!origin) return callback(null, true);
+       if (!origin) return callback(null, true);
 
       if (allowed.indexOf(origin) !== -1) {
         //  Origin is allowed
@@ -165,6 +166,12 @@ app.use("/api/donation", donationRoutes);
 app.use("/api/export", exportRoutes);
 app.use("/api/traffic", trafficRoutes);
 app.use("/api/track", track);
+
+
+// it is call from different domain in production
+app.use("/api/trackorder",trackOrder);
+
+
 app.use((err, req, res, next) => {
   // console.error("API Error:", err);
   fs.appendFile(

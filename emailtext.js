@@ -722,7 +722,14 @@ export const emailTextforapplication = (body, text) => {
   return emailText;
 };
 
-
+  // <tr>
+  //                        <td>User Name:</td>
+  //                        <td>${data.user}</td>
+  //                    </tr>
+  //                    <tr>
+  //                        <td>Password:</td>
+  //                        <td>${data.pass}</td>
+  //                    </tr>
 export const emailTextClient=(data)=>{
   let uname = data.donation_payload.donor.first_name;
   uname=uname.charAt(0).toUpperCase() + uname.slice(1);
@@ -901,15 +908,20 @@ let emailText = `<!DOCTYPE html>
                         <td>Date:</td>
                         <td>${new Date().toLocaleDateString('en-IN')}</td>
                     </tr>
+                  
                 </table>
+                <p>You can use the user name and password for tracking the donation.</p>
             </div>
             
             <!-- Section 3 -->
             <div class="section">
                 <div class="section-title">What Happens Next</div>
                 <div class="section-content">
-                    Your donation receipt will be sent to your registered email address. This receipt can be used for tax deduction purposes under Section 80G of the Income Tax Act. If you have any questions, please feel free to reach out to us.
-                </div>
+Thank you for your generous support.
+We have attached your donation receipt to this email.
+
+This receipt is eligible for tax deduction under Section 80G of the Income Tax Act.
+If you need any assistance or have any questions, please feel free to contact us.                </div>
             </div>
             
             <!-- Call to Action Button -->
@@ -921,8 +933,7 @@ let emailText = `<!DOCTYPE html>
             <div style="margin-top: 30px; font-size: 14px; color: #555;">
                 <p>Warm regards,</p>
                 <p style="margin-top: 10px; font-weight: 600;">
-                    Kavita Rawat<br>
-                    Chairperson<br>
+                    Team of CCSDO<br>
                     Crime Control & Social Development Organisation (CCSDO)
                 </p>
             </div>

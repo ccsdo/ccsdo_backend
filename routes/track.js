@@ -9,9 +9,9 @@ const track=(req,res)=>{
 // console.log(req)
   const log = {
     page: req.body?.page || "unknown",
-    referrer: req.body.referrer,
-    userAgent: req.body.userAgent,
-    time: req.body.time,
+    referrer: req.body?.referrer,
+    userAgent: req.body?.userAgent,
+    time: req.body?.time,
     ip: ip
   };
   console.log(log);
