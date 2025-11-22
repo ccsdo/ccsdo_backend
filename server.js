@@ -41,7 +41,7 @@ const trafficRoutes = require("./routes/trafficRoutes");
 const exportRoutes = require("./routes/deleteRoutes");
 const track = require("./routes/track");
 const trackOrder = require("./routes/trackOrder")
-
+const recent = require("./routes/recentpostRoutes")
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -67,54 +67,54 @@ app.use((req, res, next) => {
   next();
 });
 // Middleware
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  const userAgent = req.headers["user-agent"];
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin;
+//   const userAgent = req.headers["user-agent"];
 
-  // Block requests with no origin (Postman, curl, backend scripts)
-  if (!origin) {
+//   // Block requests with no origin (Postman, curl, backend scripts)
+//   if (!origin) {
 
-    fs.appendFile(
-          "corsaccess.log",
-          `Blocked request: No Origin (probably Postman)`,
-          () => { }
-        );
-    return res.status(403).json({
-      success: false,
-      message: "Access denied: missing Origin header",
-    });
-  }
+//     fs.appendFile(
+//           "corsaccess.log",
+//           `Blocked request: No Origin (probably Postman)`,
+//           () => { }
+//         );
+//     return res.status(403).json({
+//       success: false,
+//       message: "Access denied: missing Origin header",
+//     });
+//   }
 
-  // Block Postman and curl explicitly by user-agent
-  if (userAgent?.includes("Postman") || userAgent?.includes("curl")) {
-    console.log("Blocked request: User-Agent:", userAgent);
-    fs.appendFile(
-          "corsaccess.log",
-          `Blocked request: User-Agent:, ${userAgent}`,
-          () => { }
-        );
-    return res.status(403).json({
-      success: false,
-      message: "Access denied: Postman or curl requests blocked",
-    });
-  }
+//   // Block Postman and curl explicitly by user-agent
+//   if (userAgent?.includes("Postman") || userAgent?.includes("curl")) {
+//     console.log("Blocked request: User-Agent:", userAgent);
+//     fs.appendFile(
+//           "corsaccess.log",
+//           `Blocked request: User-Agent:, ${userAgent}`,
+//           () => { }
+//         );
+//     return res.status(403).json({
+//       success: false,
+//       message: "Access denied: Postman or curl requests blocked",
+//     });
+//   }
 
 
 
-  if (!allowed.includes(origin)) {
-     fs.appendFile(
-          "corsaccess.log",
-          `Blocked request: User-Agent:, ${origin}`,
-          () => { }
-        );
-    return res.status(403).json({
-      success: false,
-      message: "Access denied: Origin not allowed",
-    });
-  }
+//   if (!allowed.includes(origin)) {
+//      fs.appendFile(
+//           "corsaccess.log",
+//           `Blocked request: User-Agent:, ${origin}`,
+//           () => { }
+//         );
+//     return res.status(403).json({
+//       success: false,
+//       message: "Access denied: Origin not allowed",
+//     });
+//   }
 
-  next();
-});
+//   next();
+// });
 
 app.use(
   cors({
@@ -166,8 +166,7 @@ app.use("/api/donation", donationRoutes);
 app.use("/api/export", exportRoutes);
 app.use("/api/traffic", trafficRoutes);
 app.use("/api/track", track);
-
-
+app.use("/api/recentpost", recent)
 // it is call from different domain in production
 app.use("/api/trackorder",trackOrder);
 

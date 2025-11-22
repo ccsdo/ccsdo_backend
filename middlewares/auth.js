@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 function auth(req, res, next) {
+
   const authHeader = req.headers["authorization"];
   if (!authHeader) return res.status(401).json({ success: false, message: "No token provided" });
 
@@ -8,8 +9,10 @@ function auth(req, res, next) {
   if (!token) return res.status(401).json({ success: false, message: "Invalid token format" });
 
   try {
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.admin = decoded;
+
     next();
 
 
