@@ -73,7 +73,7 @@ router.post("/career", validate(careerSchema), async (req, res) => {
 
       let emailTextThankYou = emailTextThankyouClient(newCareer);
       
-      mailtoClient(`Thank you for applying to us`,emailTextThankYou,newCareer.email);
+      mailtoClient(`Thank you for applying to us`,emailTextThankYou,newCareer.email,null);
     
   } catch (err) {
     res.status(500).json({ success: false, error: "error in career form saving" });
@@ -88,7 +88,7 @@ router.post("/internship", validate(internshipSchema), async (req, res) => {
       const emailText = emailTextforinternship(newInternship,"internship");
     mail(`New internship form`,emailText);
           let emailTextThankYou = emailTextThankyouClient(newInternship);
-           mailtoClient(`Thank you for applying to us`,emailTextThankYou,newInternship.email);
+           mailtoClient(`Thank you for applying to us`,emailTextThankYou,newInternship.email,null);
     res.status(201).json({ success: true, message: "Internship form saved!" });
   } catch (err) {
     console.log("internship form error: "+err);
@@ -104,7 +104,7 @@ router.post("/volunteer", validate(volunteerSchema),async (req, res) => {
         const emailText = emailTextforvolunteer(newVolunteer,"volunteer");
     mail(`New volunteer form`,emailText);
           let emailTextThankYou = emailTextThankyouClient(newVolunteer);
-            mailtoClient(`Thank you for applying to us`,emailTextThankYou,newVolunteer.email);
+            mailtoClient(`Thank you for applying to us`,emailTextThankYou,newVolunteer.email,null);
 
             // if(req.query.secret!=process.env.SECERT){return}
 
@@ -136,7 +136,7 @@ router.post("/contact", validate(contactSchema),async (req, res) => {
     mail(`New contact form`,emailText);
           let emailTextThankYou = emailTextThankyouClient(newContact);
           // console.log("contact thank you email text: " + emailTextThankYou);
-            mailtoClient(`Thank you for applying to us`,emailTextThankYou,newContact.email);
+            mailtoClient(`Thank you for applying to us`,emailTextThankYou,newContact.email,null);
       // console.log("Thank you email sent");
     res.status(201).json({ success: true, message: "Contact form saved!" });
   } catch (err) {
@@ -166,7 +166,7 @@ router.post("/application", validate(applicationSchema), async (req, res) => {
         const emailText = emailTextforapplication(newApp,"application");
     mail(`New application form`,emailText); 
           let emailTextThankYou = emailTextThankyouClient(newApp);
-           mailtoClient(`Thank you for applying to us`,emailTextThankYou,newCareer.email);
+           mailtoClient(`Thank you for applying to us`,emailTextThankYou,newCareer.email,null);
     res.status(201).json({ success: true, message: "Application form saved!" });
   } catch (err) {
     res.status(500).json({ success: false, error: "error in application form saving" });

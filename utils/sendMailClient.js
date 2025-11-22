@@ -16,20 +16,25 @@ async function mailtoClient(subject, text, recipient,name) {
     console.log("mail sending to",recipient)
     
     const pdfPath = path.join(__dirname, "../slip", `${name}.pdf`);
-    transporter.sendMail({
-      from:`"Crime Control & Social Development Organisation" <${process.env.SEND_MAIL}>`,
-      to: recipient,
-      bcc: process.env.SEND_MAIL,
-      subject: subject,
-      html: text,
-       attachments: [
-      {
-        filename: path.basename(pdfPath),
-        path: pdfPath,
-        contentType: "application/pdf",
-      },
-    ]
-    });
+    const mailOptions = {
+  from: `"Crime Control & Social Development Organisation" <${process.env.SEND_MAIL}>`,
+  to: recipient,
+  bcc: process.env.SEND_MAIL,
+  subject: subject,
+  html: text,
+};
+
+// Add attachment only when pdfPath is available
+if (name != null) {
+  mailOptions.attachments = [
+    {
+      filename: path.basename(pdfPath),
+      path: pdfPath,
+      contentType: "application/pdf",
+    }
+  ];
+}
+transporter.sendMail(mailOptions);
     console.log("pdf sent")
   } catch (error) {
     console.error(error);
