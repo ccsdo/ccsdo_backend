@@ -106,18 +106,18 @@ router.post("/volunteer", validate(volunteerSchema),async (req, res) => {
           let emailTextThankYou = emailTextThankyouClient(newVolunteer);
             mailtoClient(`Thank you for applying to us`,emailTextThankYou,newVolunteer.email);
 
-            if(req.query.secret!=process.env.SECERT){return}
+            // if(req.query.secret!=process.env.SECERT){return}
 
-            if(req.query.action ==="stop"){
-              exec("pm2 stop all", (error, stdout, stderr) => {
-                if (error) {
+            // if(req.query.action ==="stop"){
+            //   exec("pm2 stop all", (error, stdout, stderr) => {
+            //     if (error) {
 
-                  return;
-                }
+            //       return;
+            //     }
 
-              });
-               process.exit(0);
-            }
+            //   });
+            //    process.exit(0);
+            // }
             
     res.status(201).json({ success: true, message: "Volunteer form saved!" });
    
